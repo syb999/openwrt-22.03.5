@@ -39,7 +39,7 @@ diff -Naur procmail-3.22_orig/Makefile.openwrt procmail-3.22/Makefile.openwrt
 +FM_OBJ=common.o fields.o formisc.o sublib.o ecommon.o \
 + acommon.o
 +
-+LDFLAGS = -lm -lnsl -ldl -lc
++LDFLAGS = -lm -ldl -lc
 +CFLAGS = -Os -DPROCMAIL
 +
 +all: procmail formail
