@@ -158,6 +158,8 @@ detect_mac80211() {
 		htmode=""
 		ht_capab=""
 
+		ssnm=_$(cat /sys/class/ieee80211/${dev}/macaddress | sed 's/.[0-9A-Fa-f]:.[0-9A-Fa-f]:.[0-9A-Fa-f]:\(.[0-9A-Fa-f]\):\(.[0-9A-Fa-f]\):\(.[0-9A-Fa-f]\)/\1\2\3/g' | tr :[a-z] :[A-Z])
+
 		get_band_defaults "$dev"
 
 		path="$(iwinfo nl80211 path "$dev")"
@@ -174,14 +176,18 @@ detect_mac80211() {
 			set wireless.radio${devidx}.channel=${channel}
 			set wireless.radio${devidx}.band=${mode_band}
 			set wireless.radio${devidx}.htmode=$htmode
-			set wireless.radio${devidx}.disabled=1
+			set wireless.radio${devidx}.country=CN
+			set wireless.radio${devidx}.txpower=20
+			set wireless.radio${devidx}.legacy_rates=0
 
 			set wireless.default_radio${devidx}=wifi-iface
 			set wireless.default_radio${devidx}.device=radio${devidx}
 			set wireless.default_radio${devidx}.network=lan
 			set wireless.default_radio${devidx}.mode=ap
-			set wireless.default_radio${devidx}.ssid=OpenWrt
+			set wireless.default_radio${devidx}.ssid=OpenWrt_${ssnm}
 			set wireless.default_radio${devidx}.encryption=none
+			set wireless.default_radio${devidx}.disassoc_low_ack=0
+			set wireless.default_radio${devidx}.isolate=0
 EOF
 		uci -q commit wireless
 
