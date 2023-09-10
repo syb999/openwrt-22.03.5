@@ -956,3 +956,11 @@ define Device/zyxel_keenetic-extra-ii
 	check-size | zyimage -d 6162 -v "ZyXEL Keenetic Extra II"
 endef
 TARGET_DEVICES += zyxel_keenetic-extra-ii
+
+define Device/zyxel_wna4320-v2
+  IMAGE_SIZE := 7872k
+  DEVICE_VENDOR := ZyXEL
+  DEVICE_MODEL := WNA4320 v2
+  DEVICE_PACKAGES := 
+endef
+TARGET_DEVICES += zyxel_wna4320-v2
